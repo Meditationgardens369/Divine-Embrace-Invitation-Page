@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4ead9">
+  <title>Divine Embrace · An Invitation</title>
+  <meta name="description" content="A personal invitation to join Divine Embrace, a gentle online sanctuary for healing, with Guida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f6edde;
+      --cream-deep: #f1e4d0;
+      --paper: #fcf8ef;
+      --ink: #1f2a16;        /* deep forest green, body & headings */
+      --ink-soft: #3a4a2b;   /* darkened for legible body text */
+      --sage: #97ab66;       /* logo green (decorative) */
+      --sage-deep: #5f7338;  /* darker sage for text/labels */
+      --gold: #c39a44;       /* logo gold (decorative) */
+      --gold-ink: #8a6620;   /* darker gold for legible labels */
+      --gold-bright: #e3c279;
+      --gold-soft: #d8b878;
+      --hairline: rgba(31, 42, 22, 0.18);
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Jost", "Helvetica Neue", sans-serif;
+      --ease: cubic-bezier(.22, .61, .36, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; background: var(--cream); }
+
+    body {
+      margin: 0;
+      position: relative;
+      color: var(--ink-soft);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.8;
+      background:
+        radial-gradient(circle at 80% -4%, rgba(151, 171, 102, 0.20), transparent 38rem),
+        radial-gradient(circle at 0% 30%, rgba(195, 154, 68, 0.12), transparent 34rem),
+        radial-gradient(circle at 100% 70%, rgba(151, 171, 102, 0.12), transparent 32rem),
+        linear-gradient(180deg, #f8f1e4, var(--cream) 40%, #f3e9d8);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Living atmosphere: drifting glows behind everything */
+    .aurora { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+    .aurora span {
+      position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.5;
+      animation: drift 26s var(--ease) infinite;
+    }
+    .aurora span:nth-child(1) { width: 46vw; height: 46vw; left: -10vw; top: -8vw; background: radial-gradient(circle, rgba(151,171,102,0.35), transparent 70%); }
+    .aurora span:nth-child(2) { width: 38vw; height: 38vw; right: -8vw; top: 18vh; background: radial-gradient(circle, rgba(216,184,120,0.30), transparent 70%); animation-delay: -8s; animation-duration: 32s; }
+    .aurora span:nth-child(3) { width: 42vw; height: 42vw; left: 10vw; bottom: -14vw; background: radial-gradient(circle, rgba(151,171,102,0.25), transparent 70%); animation-delay: -14s; animation-duration: 30s; }
+
+    /* Premium paper grain */
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      opacity: 0.5; mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    }
+
+    ::selection { color: var(--cream); background: var(--sage-deep); }
+    a { color: inherit; }
+
+    .wrap { width: min(1080px, calc(100% - 48px)); margin: 0 auto; position: relative; z-index: 1; }
+    .narrow { width: min(720px, calc(100% - 48px)); margin: 0 auto; position: relative; z-index: 1; }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; text-wrap: balance; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin: 0;
+      color: var(--gold-ink);
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 26px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-ink)); }
+    .eyebrow::after { background: linear-gradient(90deg, var(--gold-ink), transparent); }
+    .eyebrow.solo::before { display: none; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 70px 0 90px;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      width: min(760px, calc(100% - 44px));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-halo {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 4px;
+    }
+
+    /* Soft golden halo behind the (transparent) logo */
+    .logo-halo::before {
+      content: ""; position: absolute; width: 78%; height: 78%; border-radius: 50%;
+      background: radial-gradient(circle, rgba(216,184,120,0.30) 0%, rgba(151,171,102,0.12) 45%, transparent 68%);
+      filter: blur(16px); z-index: 0;
+      animation: breathe 9s var(--ease) infinite;
+    }
+
+    .logo-halo img {
+      position: relative;
+      z-index: 2;
+      width: 300px;
+      height: auto;
+      filter: drop-shadow(0 16px 30px rgba(31, 42, 22, 0.16));
+    }
+
+    /* Fallback monogram shown only if logo.png is missing */
+    .logo-fallback {
+      position: relative; z-index: 2; display: none;
+      flex-direction: column; align-items: center; gap: 6px;
+    }
+    .logo-fallback.show { display: flex; }
+    .logo-fallback .name { font-family: var(--serif); font-weight: 600; font-size: 2.9rem; letter-spacing: 0.34em; text-indent: 0.34em; color: var(--ink); line-height: 1; }
+    .logo-fallback .sub { font-family: var(--serif); font-weight: 500; font-size: 1.4rem; letter-spacing: 0.44em; text-indent: 0.44em; color: var(--gold-ink); }
+
+    .hero h1 {
+      margin: 18px 0 20px;
+      font-size: clamp(2.7rem, 5.6vw, 4.3rem);
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-size: clamp(1.05rem, 1.6vw, 1.18rem);
+      line-height: 1.75;
+    }
+    .hero-sub strong { font-weight: 600; color: var(--ink); }
+
+    /* Short social proof, just under the headline */
+    .hero-proof {
+      display: inline-flex; align-items: center; gap: 14px;
+      margin: 22px 0 0; padding: 11px 20px;
+      background: rgba(252,248,239,0.8);
+      border: 1px solid rgba(195,154,68,0.3);
+      border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(31,42,22,0.07);
+      max-width: 100%;
+    }
+    .hero-proof .stars { color: var(--gold); letter-spacing: 2px; font-size: 0.86rem; flex: 0 0 auto; }
+    .hero-proof .pq { margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.02rem; color: var(--ink); line-height: 1.3; }
+    .hero-proof .pq b { font-style: normal; font-family: var(--sans); font-weight: 500; font-size: 0.74rem; color: var(--sage-deep); letter-spacing: 0.04em; }
+
+    /* ---------- COUNSELING BAND ---------- */
+    .counsel { padding: clamp(64px, 8vw, 96px) 0; text-align: center; }
+    .counsel-card {
+      width: min(760px, calc(100% - 40px)); margin: 0 auto;
+      padding: clamp(34px, 5vw, 50px) clamp(28px, 5vw, 56px);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      background: linear-gradient(160deg, rgba(44,58,34,0.04), rgba(151,171,102,0.08));
+      border: 1px solid rgba(95,115,56,0.3);
+      border-radius: 20px;
+    }
+    .counsel-card .eyebrow { margin-bottom: 6px; }
+    .counsel-card h3 { margin: 0; font-size: clamp(1.7rem, 3.2vw, 2.4rem); color: var(--ink); }
+    .counsel-card p { margin: 6px 0 18px; max-width: 38rem; color: var(--ink-soft); font-size: 1.02rem; }
+    .counsel-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 26px; border-radius: 999px; text-decoration: none;
+      font-family: var(--sans); font-size: 0.76rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink); background: transparent; border: 1px solid var(--sage-deep);
+      transition: background .4s var(--ease), color .4s var(--ease), transform .4s var(--ease);
+    }
+    .counsel-link:hover { background: var(--sage-deep); color: #fff; transform: translateY(-2px); }
+
+    .signature {
+      margin: 26px 0 0;
+      color: var(--sage-deep);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.45rem;
+    }
+
+    .scroll-cue {
+      margin-top: 42px;
+      display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+      color: var(--ink-soft);
+      font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      text-decoration: none;
+    }
+    .scroll-cue .line { position: relative; width: 1px; height: 50px; background: linear-gradient(var(--gold), transparent); overflow: hidden; }
+    .scroll-cue .line::after { content: ""; position: absolute; top: -50%; left: 0; width: 100%; height: 50%; background: var(--gold-bright); animation: trickle 2.4s var(--ease) infinite; }
+
+    /* ---------- BOTANICAL DIVIDER ---------- */
+    .sprig { display: block; margin: 0 auto; width: 180px; height: auto; color: var(--gold); opacity: 0.85; }
+
+    /* ---------- SECTIONS ---------- */
+    .section { position: relative; padding: clamp(82px, 11vw, 150px) 0; }
+
+    .intro { text-align: center; padding-top: clamp(64px, 8vw, 110px); }
+    .intro h2 {
+      margin: 22px auto 24px;
+      max-width: 740px;
+      font-size: clamp(2.2rem, 4.6vw, 3.5rem);
+      line-height: 1.16;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .intro p {
+      max-width: 580px; margin: 0 auto;
+      color: var(--ink-soft); font-size: 1.06rem;
+    }
+
+    /* ---------- GIFTS ---------- */
+    .gifts-head { text-align: center; margin-bottom: 56px; }
+    .gifts-head h2 {
+      margin: 18px 0 0;
+      font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+      color: var(--ink);
+    }
+    .gifts-head .free-badge {
+      display: inline-flex; align-items: center; gap: 9px; margin-top: 20px;
+      padding: 8px 20px; border-radius: 999px;
+      background: linear-gradient(rgba(151,171,102,0.16), rgba(151,171,102,0.08));
+      border: 1px solid rgba(151, 171, 102, 0.45);
+      color: var(--sage-deep);
+      font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .free-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 8px var(--sage); }
+
+    .gifts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .gift {
+      position: relative;
+      display: flex; flex-direction: column;
+      padding: 44px 32px 34px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(216,184,120,0.10), transparent 60%),
+        linear-gradient(165deg, var(--paper), #f6edda);
+      border: 1px solid rgba(195, 154, 68, 0.26);
+      border-radius: 18px;
+      box-shadow: 0 26px 54px rgba(44, 58, 34, 0.08), inset 0 1px rgba(255,255,255,0.6);
+      overflow: hidden;
+      transition: transform .65s var(--ease), box-shadow .65s var(--ease), border-color .65s var(--ease);
+    }
+    /* gold accent bar that grows on hover */
+    .gift::before {
+      content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 0; height: 3px; border-radius: 3px;
+      background: linear-gradient(90deg, var(--sage), var(--gold-bright), var(--sage));
+      transition: width .7s var(--ease);
+    }
+    /* soft corner flourish */
+    .gift::after {
+      content: ""; position: absolute; right: -60px; top: -60px; width: 150px; height: 150px;
+      border-radius: 50%; border: 1px solid rgba(195,154,68,0.18);
+      transition: transform .9s var(--ease);
+    }
+    .gift:hover {
+      transform: translateY(-10px);
+      border-color: rgba(195, 154, 68, 0.55);
+      box-shadow: 0 40px 72px rgba(44, 58, 34, 0.16), inset 0 1px rgba(255,255,255,0.7);
+    }
+    .gift:hover::before { width: 64px; }
+    .gift:hover::after { transform: scale(1.25); }
+
+    /* Emblem medallion */
+    .emblem {
+      position: relative;
+      width: 84px; height: 84px; margin-bottom: 26px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 38%, #fbf3df, #f1e3c5 60%, #ecdcb6);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.9), inset 0 -3px 8px rgba(195,154,68,0.18), 0 10px 24px rgba(44,58,34,0.10);
+      animation: bob 6s var(--ease) infinite;
+    }
+    /* thin gold ring + outer glow */
+    .emblem::before {
+      content: ""; position: absolute; inset: -1px; border-radius: 50%;
+      padding: 1px; background: linear-gradient(145deg, var(--gold-bright), rgba(195,154,68,0.3) 55%, var(--sage));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+    }
+    .emblem::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(216,184,120,0); transition: box-shadow .6s var(--ease);
+    }
+    .gift:hover .emblem::after { box-shadow: 0 0 0 7px rgba(216,184,120,0.16); }
+    .gift:nth-child(2) .emblem { animation-delay: -2s; }
+    .gift:nth-child(3) .emblem { animation-delay: -4s; }
+    .emblem svg { position: relative; width: 42px; height: 42px; z-index: 1; }
+
+    .gift .num {
+      position: absolute; top: 22px; right: 28px;
+      font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 2.4rem;
+      line-height: 1;
+      color: transparent; -webkit-text-stroke: 1px rgba(138,102,32,0.55);
+    }
+
+    .gift h3 { margin: 0 0 12px; font-size: 1.75rem; line-height: 1.12; color: var(--ink); }
+    .gift p { margin: 0 0 24px; color: var(--ink-soft); font-size: 0.97rem; line-height: 1.72; }
+    .gift .tag {
+      margin-top: auto; padding-top: 18px; display: flex; align-items: center; gap: 10px;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sage-deep);
+    }
+    .gift .tag::before { content: ""; width: 16px; height: 1px; background: var(--gold); }
+
+    /* ---------- ALSO INCLUDED ---------- */
+    .more {
+      margin-top: 28px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .more-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 22px 24px;
+      background: linear-gradient(160deg, rgba(252,248,239,0.85), rgba(246,237,222,0.7));
+      border: 1px solid rgba(195,154,68,0.2);
+      border-radius: 14px;
+      box-shadow: 0 10px 26px rgba(44,58,34,0.05);
+      font-size: 0.9rem; color: var(--ink-soft); line-height: 1.55;
+      transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+    }
+    .more-item:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(44,58,34,0.1); }
+    .more-item .leaf { flex: 0 0 auto; width: 26px; height: 26px; color: var(--sage-deep); margin-top: 2px; }
+    .more-item { font-size: 0.94rem; }
+    .more-item strong { display: block; color: var(--ink); font-weight: 600; font-family: var(--serif); font-size: 1.18rem; margin-bottom: 3px; }
+
+    /* ---------- QUOTE ---------- */
+    .quote {
+      position: relative; text-align: center;
+      padding: clamp(96px, 14vw, 180px) 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(151, 171, 102, 0.16), transparent 32rem);
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+    }
+    .quote::before {
+      content: "\201C"; position: absolute; top: 0.18em; left: 50%; transform: translateX(-50%);
+      font-family: var(--serif); font-size: 16rem; line-height: 1; color: var(--gold); opacity: 0.13;
+    }
+    .quote blockquote {
+      position: relative; z-index: 1;
+      margin: 0 auto; max-width: 820px;
+      font-family: var(--serif); font-style: italic; font-weight: 500;
+      font-size: clamp(2rem, 4.4vw, 3.5rem);
+      line-height: 1.22; color: var(--ink); letter-spacing: -0.015em;
+    }
+    .quote cite {
+      display: inline-flex; align-items: center; gap: 12px; margin-top: 30px;
+      font-family: var(--sans); font-style: normal;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-ink);
+    }
+    .quote cite::before { content: ""; width: 30px; height: 1px; background: var(--gold-ink); opacity: 0.7; }
+
+    /* ---------- SIGN UP ---------- */
+    .join { position: relative; text-align: center; padding: clamp(94px, 12vw, 160px) 0; overflow: hidden; }
+    .join-card {
+      position: relative; z-index: 1;
+      width: min(620px, calc(100% - 40px)); margin: 0 auto;
+      padding: clamp(40px, 6vw, 64px) clamp(28px, 5vw, 56px);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(216,184,120,0.14), transparent 60%),
+        linear-gradient(165deg, var(--paper), #f5ecd9);
+      border: 1px solid rgba(195,154,68,0.3);
+      border-radius: 26px;
+      box-shadow: 0 40px 90px rgba(44,58,34,0.14), inset 0 1px rgba(255,255,255,0.7);
+    }
+    .join h2 { margin: 16px auto 14px; font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--ink); }
+    .join p.lead { max-width: 460px; margin: 0 auto 36px; color: var(--ink-soft); font-size: 1.04rem; }
+
+    .signup { display: flex; flex-direction: column; gap: 14px; }
+    .signup input {
+      width: 100%; padding: 17px 24px;
+      font-family: var(--sans); font-size: 1rem; color: var(--ink);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(44, 58, 34, 0.18);
+      border-radius: 999px;
+      transition: border-color .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+    }
+    .signup input::placeholder { color: rgba(74, 90, 60, 0.5); }
+    .signup input:focus {
+      outline: none; background: #fff;
+      border-color: var(--sage-deep);
+      box-shadow: 0 0 0 4px rgba(151, 171, 102, 0.18);
+    }
+
+    .btn {
+      position: relative; overflow: hidden;
+      width: 100%; padding: 19px 28px; margin-top: 4px;
+      cursor: pointer;
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(120deg, var(--sage-deep), var(--sage) 50%, var(--gold));
+      background-size: 200% 100%;
+      border: none; border-radius: 999px;
+      box-shadow: 0 18px 40px rgba(126, 147, 80, 0.34), inset 0 1px rgba(255,255,255,0.3);
+      transition: transform .5s var(--ease), box-shadow .5s var(--ease), background-position .8s var(--ease);
+    }
+    .btn::after {
+      content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+      transform: skewX(-18deg); animation: sweep 4.5s var(--ease) infinite;
+    }
+    .btn:hover { transform: translateY(-3px); background-position: 100% 0; box-shadow: 0 24px 52px rgba(126, 147, 80, 0.44), inset 0 1px rgba(255,255,255,0.3); }
+
+    .signup .fine { margin: 12px 0 0; font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+    .thanks { display: none; }
+    .thanks.show { display: block; animation: rise .7s var(--ease); }
+    .thanks .seal {
+      width: 74px; height: 74px; margin: 0 auto 18px; display: grid; place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 38%, #fbf3df, #ecdcb6);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.9), 0 10px 24px rgba(44,58,34,0.12);
+    }
+    .thanks .seal svg { width: 38px; height: 38px; }
+    .thanks h3 { margin: 0 0 10px; font-size: 2rem; font-style: italic; color: var(--ink); }
+    .thanks p { margin: 0 auto; max-width: 420px; color: var(--ink-soft); }
+
+    /* ---------- BOOK SHOWCASE ---------- */
+    .book-section { position: relative; }
+    .book-grid {
+      display: grid; grid-template-columns: 0.85fr 1.15fr;
+      gap: clamp(48px, 8vw, 110px); align-items: center;
+    }
+    .book-stage { display: flex; justify-content: center; perspective: 1500px; }
+    .book {
+      position: relative; width: clamp(200px, 22vw, 248px); aspect-ratio: 5 / 7.2;
+      transform: rotateY(-22deg) rotateX(4deg); transform-style: preserve-3d;
+      animation: bookFloat 7s var(--ease) infinite;
+      transition: transform .8s var(--ease);
+    }
+    .book:hover { transform: rotateY(-10deg) rotateX(2deg); }
+    .book-face {
+      position: absolute; inset: 0; border-radius: 3px 8px 8px 3px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(195,154,68,0.14), transparent 60%),
+        linear-gradient(150deg, #33422a, #1c2614 75%);
+      box-shadow: 0 30px 60px rgba(31,42,22,0.4), inset 0 0 0 1px rgba(195,154,68,0.35);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 14% 16%; text-align: center; overflow: hidden;
+    }
+    /* spine shading */
+    .book-face::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 16px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(255,255,255,0.05));
+      border-radius: 3px 0 0 3px;
+    }
+    /* page block on the right edge */
+    .book-face::after {
+      content: ""; position: absolute; right: -9px; top: 5px; bottom: 5px; width: 11px;
+      background: repeating-linear-gradient(90deg, #f3e9d6 0 2px, #d9cbb0 2px 3px);
+      border-radius: 0 3px 3px 0;
+      box-shadow: 2px 0 6px rgba(31,42,22,0.25);
+    }
+    .book-emblem { display: flex; gap: 6px; margin-bottom: 16px; }
+    .book-emblem span { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); }
+    .book-emblem span:nth-child(2) { width: 7px; height: 7px; }
+    .book-title {
+      font-family: var(--serif); font-weight: 600; font-style: italic;
+      font-size: clamp(1.4rem, 2.2vw, 1.7rem); line-height: 1.1; color: var(--gold-bright);
+      letter-spacing: 0.01em;
+    }
+    .book-rule { width: 34px; height: 1px; background: rgba(216,184,120,0.6); margin: 14px 0; }
+    .book-author {
+      font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.34em; text-transform: uppercase;
+      color: rgba(246,237,222,0.85);
+    }
+    .book-copy .eyebrow { margin-bottom: 18px; }
+    .book-copy h2 { margin: 0 0 18px; font-size: clamp(2.1rem, 4.2vw, 3.2rem); color: var(--ink); line-height: 1.08; }
+    .book-copy p { margin: 0 0 22px; color: var(--ink-soft); font-size: 1.04rem; max-width: 30rem; }
+    .preorder-note {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 20px; border-radius: 14px;
+      background: linear-gradient(rgba(151,171,102,0.14), rgba(151,171,102,0.07));
+      border: 1px solid rgba(95,115,56,0.35);
+      font-size: 0.92rem; color: var(--ink); max-width: 30rem;
+    }
+    .preorder-note .pin {
+      flex: 0 0 auto; margin-top: 1px;
+      font-family: var(--sans); font-weight: 600; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #fff; background: var(--sage-deep); padding: 4px 9px; border-radius: 999px;
+    }
+
+    /* ---------- TESTIMONIALS ---------- */
+    .testimonials {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(151,171,102,0.12), transparent 50%);
+    }
+    .test-head { text-align: center; max-width: 640px; margin: 0 auto clamp(48px, 6vw, 70px); }
+    .test-head h2 { margin: 16px 0 18px; font-size: clamp(2.1rem, 4.4vw, 3.3rem); color: var(--ink); line-height: 1.12; }
+    .test-head p { margin: 0; color: var(--ink-soft); font-size: 1.06rem; }
+    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
+    .tcard {
+      position: relative;
+      padding: 34px 30px 30px;
+      background: linear-gradient(165deg, var(--paper), #f6edda);
+      border: 1px solid rgba(195,154,68,0.24);
+      border-radius: 18px;
+      box-shadow: 0 22px 48px rgba(31,42,22,0.08), inset 0 1px rgba(255,255,255,0.6);
+      transition: transform .55s var(--ease), box-shadow .55s var(--ease);
+    }
+    .tcard:hover { transform: translateY(-7px); box-shadow: 0 34px 62px rgba(31,42,22,0.14); }
+    .tcard .mark {
+      font-family: var(--serif); font-size: 3.4rem; line-height: 0.6; color: var(--gold);
+      opacity: 0.45; display: block; margin-bottom: 6px;
+    }
+    .tcard blockquote {
+      margin: 0 0 22px; font-family: var(--serif); font-style: italic;
+      font-size: 1.16rem; line-height: 1.5; color: var(--ink);
+    }
+    .tcard .who { display: flex; align-items: center; gap: 12px; }
+    .tcard .who .avatar {
+      flex: 0 0 auto; width: 38px; height: 38px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 50% 38%, #e8d9b4, #c9b487);
+      font-family: var(--serif); font-weight: 600; color: var(--ink); font-size: 1.05rem;
+    }
+    .tcard .who .meta strong { display: block; font-weight: 600; color: var(--ink); font-size: 0.96rem; font-family: var(--sans); }
+    .tcard .who .meta span { font-size: 0.78rem; color: var(--sage-deep); letter-spacing: 0.04em; }
+
+    /* Featured (full-width) testimonial */
+    .tcard.featured {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 44px);
+      align-items: center;
+      padding: clamp(34px, 4.5vw, 50px) clamp(30px, 5vw, 56px);
+      background:
+        radial-gradient(circle at 12% 20%, rgba(151,171,102,0.12), transparent 55%),
+        linear-gradient(155deg, var(--paper), #f4ead6);
+      border-color: rgba(195,154,68,0.35);
+      margin-bottom: 22px;
+    }
+    .tcard.featured .fphoto {
+      width: clamp(86px, 11vw, 120px); height: clamp(86px, 11vw, 120px); border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 50% 38%, #e8d9b4, #c2ab7c);
+      font-family: var(--serif); font-weight: 600; font-size: clamp(2.2rem, 4vw, 3rem); color: var(--ink);
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.7), 0 14px 30px rgba(31,42,22,0.12);
+    }
+    .tcard.featured blockquote { font-size: clamp(1.25rem, 2.1vw, 1.6rem); line-height: 1.45; margin-bottom: 16px; }
+    .tcard.featured .who .avatar { display: none; }
+    @media (max-width: 640px) {
+      .tcard.featured { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+      .tcard.featured .who { justify-content: center; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer { position: relative; padding: 52px 0 56px; text-align: center; border-top: 1px solid var(--hairline); }
+    footer .footmark { width: 38px; height: 38px; margin: 0 auto 16px; color: var(--sage-deep); opacity: 0.9; }
+    footer .tagline {
+      font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--sage-deep);
+    }
+    footer .tagline span { color: var(--gold); margin: 0 10px; }
+    footer .small { margin-top: 14px; font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: 1rem; }
+
+    /* ---------- REVEAL ---------- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .12s; }
+    .delay-2 { transition-delay: .24s; }
+    .delay-3 { transition-delay: .36s; }
+
+    @keyframes breathe { 0%,100% { transform: scale(0.96); } 50% { transform: scale(1.04); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(4vw,3vh) scale(1.08); } 66% { transform: translate(-3vw,2vh) scale(0.96); } }
+    @keyframes sway { 0%,100% { transform: translate(-50%,-54%) rotate(-1.2deg); } 50% { transform: translate(-50%,-52%) rotate(1.2deg); } }
+    @keyframes float-dot { 0%,100% { transform: translate(-50%,0); opacity: var(--o,1); } 50% { transform: translate(-50%,-10px); opacity: 1; } }
+    @keyframes trickle { 0% { top: -50%; } 60%,100% { top: 100%; } }
+    @keyframes sweep { 0%,55% { left: -60%; } 80%,100% { left: 120%; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bookFloat { 0%,100% { transform: rotateY(-22deg) rotateX(4deg) translateY(0); } 50% { transform: rotateY(-22deg) rotateX(4deg) translateY(-12px); } }
+
+    @media (max-width: 820px) {
+      .gifts, .more, .test-grid { grid-template-columns: 1fr; }
+      .gift { padding: 38px 30px 32px; }
+      .book-grid { grid-template-columns: 1fr; gap: 48px; }
+      .book-copy { text-align: center; }
+      .book-copy p, .preorder-note { margin-left: auto; margin-right: auto; }
+      .book-copy .eyebrow, .book-copy h2 { justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      body { font-size: 15px; }
+      .logo-halo { width: 250px; height: 250px; }
+      .logo-halo img { width: 220px; }
+      .hero h1 { font-size: 2.3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Living atmosphere -->
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="logo-halo" aria-hidden="false">
+        <img src="../Resources/logo.png?v=2" alt="Divine Embrace" id="brandLogo">
+        <div class="logo-fallback" id="logoFallback">
+          <div class="name">DIVINE</div>
+          <div class="sub">EMBRACE</div>
+        </div>
+      </div>
+      <p class="eyebrow reveal">A Personal Invitation</p>
+      <h1 class="reveal delay-1">Your healing continues here.</h1>
+      <p class="hero-sub reveal delay-2">A gentle online space to keep releasing the weight you've carried: trauma, anxiety, the past. At your own pace, with Guida.</p>
+      <div class="hero-proof reveal delay-2">
+        <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p class="pq">&ldquo;Doing this work with Guida changed my life.&rdquo; <b>Micaela, now a practitioner herself</b></p>
+      </div>
+      <p class="signature reveal delay-3">with love, Guida</p>
+      <a class="scroll-cue reveal delay-3" href="#invitation">Your invitation<span class="line"></span></a>
+    </div>
+  </section>
+
+  <!-- ================= INTRO ================= -->
+  <section class="section intro" id="invitation">
+    <div class="narrow">
+      <p class="eyebrow reveal">What this space is for</p>
+      <h2 class="reveal delay-1">A place to keep releasing what you've carried.</h2>
+      <p class="reveal delay-2">Trauma release, nervous-system calm, energy and somatic healing, continued gently in your own time, with people walking the same path.</p>
+    </div>
+  </section>
+
+  <!-- Botanical divider -->
+  <svg class="sprig reveal" viewBox="0 0 200 40" fill="none" aria-hidden="true">
+    <path d="M10 20 H78" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
+    <path d="M190 20 H122" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
+    <path d="M100 8 C 92 14 92 26 100 32 C 108 26 108 14 100 8 Z" fill="currentColor" opacity="0.85"/>
+    <circle cx="100" cy="20" r="2.4" fill="#fcf8ef"/>
+    <circle cx="86" cy="20" r="2" fill="currentColor"/><circle cx="114" cy="20" r="2" fill="currentColor"/>
+  </svg>
+
+  <!-- ================= GIFTS ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="gifts-head reveal">
+        <p class="eyebrow solo">When you join today</p>
+        <h2>Three gifts, with my gratitude</h2>
+        <span class="free-badge">Free for past clients</span>
+      </div>
+
+      <div class="gifts">
+        <!-- GIFT 1: Book -->
+        <article class="gift reveal">
+          <span class="num">01</span>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="bk" x1="8" y1="12" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#e6c87a"/><stop offset="1" stop-color="#b8893c"/>
+                </linearGradient>
+              </defs>
+              <path d="M24 16 C 19 12.5 12 12.5 7 14.5 V 37 C 12 35 19 35 24 38.5 Z" fill="url(#bk)" opacity="0.92"/>
+              <path d="M24 16 C 29 12.5 36 12.5 41 14.5 V 37 C 36 35 29 35 24 38.5 Z" fill="url(#bk)"/>
+              <path d="M24 16 V 38.5" stroke="#7e9350" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M12 20 C 16 19 20 19.5 22 21" stroke="#fcf8ef" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+              <path d="M26 21 C 28 19.5 32 19 36 20" stroke="#fcf8ef" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+              <path d="M12 25 C 16 24 20 24.5 22 26" stroke="#fcf8ef" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+              <path d="M26 26 C 28 24.5 32 24 36 25" stroke="#fcf8ef" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+            </svg>
+          </span>
+          <h3>Her Book</h3>
+          <p>Guida's <em>Directions to Being</em>, a grounded guide through awareness, trauma and lasting change. Available now in Portuguese on Amazon and most retailers; the English edition is open for the waiting list.</p>
+          <span class="tag">Portuguese out now &middot; join the English waiting list</span>
+        </article>
+
+        <!-- GIFT 2: Weekly letter -->
+        <article class="gift reveal delay-1">
+          <span class="num">02</span>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="lt" x1="8" y1="14" x2="40" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#e6c87a"/><stop offset="1" stop-color="#b8893c"/>
+                </linearGradient>
+              </defs>
+              <rect x="8" y="14" width="32" height="22" rx="4" fill="url(#lt)"/>
+              <path d="M9 17 L24 27 L39 17" stroke="#fcf8ef" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+              <circle cx="24" cy="30" r="3.4" fill="#5f7338"/>
+              <circle cx="24" cy="30" r="1.3" fill="#fcf8ef" opacity="0.8"/>
+            </svg>
+          </span>
+          <h3>The Weekly Letter</h3>
+          <p>A weekly note from Guida with gentle, practical guidance for releasing trauma the body still holds: the unprocessed weight we carry from the past.</p>
+          <span class="tag">A new letter &middot; every week</span>
+        </article>
+
+        <!-- GIFT 3: Live Q&A -->
+        <article class="gift reveal delay-2">
+          <span class="num">03</span>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="qa" x1="10" y1="10" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#e6c87a"/><stop offset="1" stop-color="#b8893c"/>
+                </linearGradient>
+              </defs>
+              <path d="M12 12 H36 A4 4 0 0 1 40 16 V28 A4 4 0 0 1 36 32 H22 L15 38 V32 H12 A4 4 0 0 1 8 28 V16 A4 4 0 0 1 12 12 Z" fill="url(#qa)"/>
+              <circle cx="17.5" cy="22" r="2" fill="#fcf8ef"/>
+              <circle cx="24" cy="22" r="2" fill="#fcf8ef"/>
+              <circle cx="30.5" cy="22" r="2" fill="#fcf8ef"/>
+              <path d="M5 16 C 3.4 18.5 3.4 21.5 5 24" stroke="#5f7338" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M43 16 C 44.6 18.5 44.6 21.5 43 24" stroke="#5f7338" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <h3>Live Q&amp;A Sessions</h3>
+          <p>Bring your real questions on trauma and healing and hear Guida answer them live, in the moment. As a member, you're <strong>first to be invited</strong>.</p>
+          <span class="tag">Live &middot; first to be notified</span>
+        </article>
+      </div>
+
+      <!-- Also included -->
+      <div class="more">
+        <div class="more-item reveal">
+          <svg class="leaf" viewBox="0 0 24 24" fill="none"><path d="M5 19 C 5 11 11 5 19 5 C 19 13 13 19 5 19 Z" fill="currentColor" opacity="0.85"/><path d="M5 19 C 9 15 13 11 17 7" stroke="#fcf8ef" stroke-width="1.1" stroke-linecap="round"/></svg>
+          <span><strong>The book, first</strong>First to know when it lands in English &amp; Portuguese.</span>
+        </div>
+        <div class="more-item reveal delay-1">
+          <svg class="leaf" viewBox="0 0 24 24" fill="none"><path d="M12 3 L14.6 9 L21 9.4 L16 13.4 L17.8 19.6 L12 16 L6.2 19.6 L8 13.4 L3 9.4 L9.4 9 Z" fill="currentColor" opacity="0.85"/></svg>
+          <span><strong>Members-only offers</strong>Early access to workshops, discounts &amp; events.</span>
+        </div>
+        <div class="more-item reveal delay-2">
+          <svg class="leaf" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.4" fill="currentColor" opacity="0.85"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.85"><path d="M12 2.5V5"/><path d="M12 19v2.5"/><path d="M2.5 12H5"/><path d="M19 12h2.5"/><path d="M5.4 5.4 7 7"/><path d="M17 17l1.6 1.6"/><path d="M18.6 5.4 17 7"/><path d="M7 17l-1.6 1.6"/></g></svg>
+          <span><strong>Healing insights</strong>A continuing stream of guidance for your journey.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOK SHOWCASE ================= -->
+  <section class="section book-section">
+    <div class="wrap">
+      <div class="book-grid">
+        <div class="book-stage reveal">
+          <!-- To use the real cover: replace this whole .book block with
+               <img src="book-cover.jpg" alt="Directions to Being by Guida" style="width:248px;border-radius:6px;box-shadow:0 30px 60px rgba(31,42,22,.4)"> -->
+          <div class="book" aria-label="Directions to Being by Guida">
+            <div class="book-face">
+              <div class="book-emblem" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="book-title">Directions<br>to Being</div>
+              <div class="book-rule"></div>
+              <div class="book-author">Guida</div>
+            </div>
+          </div>
+        </div>
+        <div class="book-copy">
+          <p class="eyebrow reveal">The Book</p>
+          <h2 class="reveal delay-1">A guide for putting down what you've carried too long.</h2>
+          <p class="reveal delay-2"><em>Directions to Being</em> is Guida's invitation to meet yourself with honesty and tenderness. A path through awareness, trauma, and the quiet work of becoming whole again.</p>
+          <div class="preorder-note reveal delay-2">
+            <span class="pin">Out now</span>
+            <span>Available now in Portuguese on Amazon and most retailers. The English edition is coming soon and open for preorder; join the waiting list and, as a member, you'll be first in line.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUOTE ================= -->
+  <section class="quote">
+    <div class="narrow reveal">
+      <blockquote>I take refuge in my own embrace. It is warm and tender, and it comforts me.</blockquote>
+      <cite>Guida &middot; Directions to Being</cite>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <!-- Real client words (lightly tidied from their own messages/voice notes).
+       Shown with first names only, by consent. -->
+  <section class="section testimonials">
+    <div class="wrap">
+      <div class="test-head reveal">
+        <p class="eyebrow">Stories of Transformation</p>
+        <h2>The most beautiful change happens when you stop carrying it alone.</h2>
+        <p>When we invest in ourselves, and let the right people hold and guide us, something shifts. These are real words from people Guida has walked beside.</p>
+      </div>
+      <div class="test-grid">
+
+        <!-- Featured: Brigitte -->
+        <figure class="tcard featured reveal">
+          <span class="fphoto" aria-hidden="true">B</span>
+          <div>
+            <span class="mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>I spent sixteen years in a toxic relationship, and left with my three-year-old son, completely broken. After meeting Guida, so much in me healed. I grew strong enough to carry our beautiful, healthy baby girl. We named her Anya&nbsp;Guida, for everything Guida brought to our lives.</blockquote>
+            <figcaption class="who">
+              <span class="meta"><strong>Brigitte</strong><span>Mother to Anya Guida</span></span>
+            </figcaption>
+          </div>
+        </figure>
+
+        <figure class="tcard reveal">
+          <span class="mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Doing trauma release with Guida changed my life. It moved me so deeply that I became a practitioner myself. Now I help others release the trauma stored in their bodies. It all began with her.</blockquote>
+          <figcaption class="who">
+            <span class="avatar" aria-hidden="true">M</span>
+            <span class="meta"><strong>Micaela</strong><span>Trauma release practitioner</span></span>
+          </figcaption>
+        </figure>
+
+        <figure class="tcard reveal delay-1">
+          <span class="mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>I came in skeptical. I need to understand things to believe them. After one session, headaches I'd lived with for years were simply gone. The healing goes where it's needed. My whole family sees Guida now.</blockquote>
+          <figcaption class="who">
+            <span class="avatar" aria-hidden="true">D</span>
+            <span class="meta"><strong>Denise</strong><span>Past client</span></span>
+          </figcaption>
+        </figure>
+
+        <figure class="tcard reveal delay-2">
+          <span class="mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Guida is a natural healer: loving, caring, and there for me through the hardest times in my life. I've known her seven years; I flew to Portugal to work with her again. I believe in this work fully.</blockquote>
+          <figcaption class="who">
+            <span class="avatar" aria-hidden="true">K</span>
+            <span class="meta"><strong>Kenneth</strong><span>Ireland</span></span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIGN UP ================= -->
+  <section class="join" id="join">
+    <div class="join-card reveal">
+      <p class="eyebrow">Join the circle</p>
+      <h2>Step gently inside</h2>
+      <p class="lead">Leave your name and email, and your three gifts, plus your place in the circle, will be on their way.</p>
+
+      <!-- ============================================================
+           KIT (ConvertKit) SIGN-UP FORM
+           To make this collect emails:
+           1. In Kit, create a Form (Grow > Landing Pages & Forms > New).
+           2. Open the form, click "Embed" > "HTML". You'll see a URL like:
+              https://app.kit.com/forms/1234567/subscriptions
+           3. Replace YOUR_KIT_FORM_ID below with that number (e.g. 1234567).
+           4. To auto-deliver the book PDF, set an "Incentive email" on the
+              form (Settings > Incentive) and attach the PDF / download link.
+           Field names (email_address, fields[first_name]) are Kit's required
+           names, don't rename them.
+           ============================================================ -->
+      <form class="signup" id="signupForm"
+            action="https://app.kit.com/forms/YOUR_KIT_FORM_ID/subscriptions"
+            method="post">
+        <input type="text" name="fields[first_name]" placeholder="Your first name" autocomplete="given-name" required>
+        <input type="email" name="email_address" placeholder="Your email address" autocomplete="email" required>
+        <button class="btn" type="submit">Join Divine Embrace &middot; it's free</button>
+        <p class="fine">A gentle, weekly presence. Unsubscribe anytime, with love.</p>
+      </form>
+
+      <div class="thanks" id="thanks">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M10 38 C 10 22 22 10 38 10 C 38 26 26 38 10 38 Z" fill="url(#bk)"/><path d="M10 38 C 18 30 26 22 34 16" stroke="#fcf8ef" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>You're in.</h3>
+        <p>Your book, your first letter, and your live-session invitations are on their way. So glad to keep walking with you. With love, Guida</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COUNSELING ================= -->
+  <!-- Point the link below at Guida's booking page or use mailto:her-email -->
+  <section class="counsel">
+    <div class="counsel-card reveal">
+      <p class="eyebrow">One-to-one support</p>
+      <h3>Would you like more personal guidance?</h3>
+      <p>Alongside the circle, Guida offers private counselling and 1:1 healing sessions: a dedicated space to work through what feels heaviest, at your own pace.</p>
+      <a class="counsel-link" href="#book-counselling">Enquire about a session</a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <svg class="footmark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 C 5 11 11 5 19 5 C 19 13 13 19 5 19 Z" fill="currentColor"/><path d="M5 19 C 9 15 13 11 17 7" stroke="#f6edde" stroke-width="1.1" stroke-linecap="round"/></svg>
+    <p class="tagline">Trauma Release<span>&middot;</span>Energy Healing<span>&middot;</span>Somatic Healing</p>
+    <p class="small">Divine Embrace · a circle that grows gently, season by season.</p>
+  </footer>
+
+  <script>
+    // Logo fallback if an <img id="brandLogo"> is present but fails to load
+    (function () {
+      var img = document.getElementById('brandLogo');
+      var fb = document.getElementById('logoFallback');
+      if (!img || !fb) return;
+      img.addEventListener('error', function () { img.style.display = 'none'; fb.classList.add('show'); });
+      if (img.complete && img.naturalWidth === 0) { img.style.display = 'none'; fb.classList.add('show'); }
+    })();
+
+    // Reveal on scroll
+    var items = document.querySelectorAll('.reveal');
+    function revealAll() { items.forEach(function (i) { i.classList.add('is-visible'); }); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.14, rootMargin: '0px 0px -7% 0px' });
+      items.forEach(function (i) { io.observe(i); });
+      // Safety net: if the observer hasn't revealed anything shortly after load
+      // (some embedded/headless renderers don't fire it), just show everything.
+      setTimeout(function () {
+        if (!document.querySelector('.reveal.is-visible')) revealAll();
+      }, 1300);
+    } else { revealAll(); }
+
+    // Sign-up handling. Until the real Kit form ID is set, show the in-page
+    // thank-you so the page is fully demoable. Once you paste your Kit form ID,
+    // the form posts to Kit (which handles confirmation + delivering the PDF).
+    var form = document.getElementById('signupForm');
+    form.addEventListener('submit', function (ev) {
+      var action = form.getAttribute('action');
+      if (!action || action.indexOf('YOUR_KIT_FORM_ID') !== -1) {
+        ev.preventDefault();
+        form.style.display = 'none';
+        document.getElementById('thanks').classList.add('show');
+      }
+      // Otherwise the form posts normally to Kit.
+    });
+  </script>
+</body>
+</html>
